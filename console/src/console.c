@@ -456,7 +456,7 @@ void console_process(const uint8_t* data, uint32_t length) {
 #endif
             continue;
         }
-        if (c == '\n') {
+        if (c == '\n' || '\r' == c) {
             if (echo_str) {
                 write_str(echo_str);
                 echo_str = NULL;
@@ -503,7 +503,7 @@ void console_process(const uint8_t* data, uint32_t length) {
 #else
     for (uint32_t i = 0; i < length; i++) {
         const char c = data[i];
-        if (c == '\n') {
+        if (c == '\n' || '\r' == c) {
             process_line();
             reset_line_and_print_prompt();
         } else if (!m_line_invalid && c >= ' ' && c <= '~') {
